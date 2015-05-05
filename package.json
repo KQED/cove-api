@@ -1,0 +1,22 @@
+{
+  "name": "cove-api",
+  "version": "0.0.1",
+  "description": "A node.js module for accessing the PBS COVE V1 API",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/*.js"
+  },
+  "author": "Kip Gebhardt <kgebhardt@kqed.org>",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.9.25",
+    "bunyan": "^1.3.5",
+    "moment": "^2.10.2",
+    "nodeify": "^1.0.0",
+    "request": "^2.55.0"
+  },
+  "devDependencies": {
+    "must": "^0.12.0",
+    "mocha": "^2.1.0"
+  }
+}
