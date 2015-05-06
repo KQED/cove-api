@@ -13,7 +13,8 @@
     "bunyan": "^1.3.5",
     "moment": "^2.10.2",
     "nodeify": "^1.0.0",
-    "request": "^2.55.0"
+    "request": "^2.55.0",
+    "utf8": "^2.1.0"
   },
   "devDependencies": {
     "must": "^0.12.0",

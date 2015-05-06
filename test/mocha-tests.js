@@ -31,7 +31,12 @@ describe("COVE API ", function() {
     });
 
     it("Should properly normalize a url", function (){
-        var url = 'http://api.pbs.org/cove/v1/videos/?filter_nola_root=SOTM&filter_mediafile_set__video_encoding__mime_type=application/x-mpegURL&fields=tp_media_object_id,title,associated_images';
+        var url = 'http://api.pbs.org/cove/v1/videos/?filter_nola_root=SOTM&filter_mediafile_set__video_encoding__mime_type=application/x-mpegURL&fields=tp_media_object_id,title,associated_images',
+            correctly_normalized = 'http://api.pbs.org/cove/v1/videos/?fields=tp_media_object_id%252Ctitle%252Cassociated_images&filter_mediafile_set__video_encoding__mime_type=application%252Fx-mpegURL&filter_nola_root=SOTM';
+
+        var normalized_url = coveAPI.normalizeUrl(url);
+
+        normalized_url.must.be.equal.to(correctly_normalized);
     });
 
 });
