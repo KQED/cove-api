@@ -3,30 +3,24 @@ var demand  = require('must'),
     moment  = require('moment'),
     COVEApi = require('./../');
 
-var api_id =  process.env.COVE_API_ID || null,
-    api_secret = process.env.COVE_API_SECRET || null;
-
-var options = {
-    api_id          : api_id,
-    api_secret      : api_secret,
-    log_level       : 'debug'
+// These work in a limited capacity
+var sandbox_options = {
+    api_id          : 'Public-Destination-07c5773f-344f-4dd4-a3d1-e1e85157f821',
+    api_secret      : 'f650d902-5657-4881-a305-ed96ccae551d',
 };
 
-var dummy_options = {
-    api_id          : 'TEST123',
-    api_secret      : 'TEST456'
+// These creds do not work with the api
+var bad_options = {
+    api_id : 'test-abc-123',
+    api_secret : '843e62bafd4573263e439a2463b4fe78b9a0b14c'
 };
 
-if (options.api_id === null) {
-    console.log('DEFINE: export COVE_API_ID="YOUR COVE API_ID"');
-}
-if (options.api_secret === null) {
-    console.log('DEFINE: export COVE_API_SECRET="YOUR COVE API_SECRET"');
-}
 
-var coveAPI = new COVEApi(options);
+var coveAPI = new COVEApi(sandbox_options);
 
 describe("COVE API Module", function() {
+    this.timeout(10000); // The PBS API is slow.
+
     it("Should be creatable", function(){
         coveAPI.must.be.an.instanceof(COVEApi);
     });
@@ -38,6 +32,10 @@ describe("COVE API Module", function() {
     });
 
     it("Should allow api_id and api_secret to be set", function (){
+        var dummy_options = {
+            api_id          : 'TEST123',
+            api_secret      : 'TEST456'
+        };
         coveAPI.setAuth(dummy_options);
         coveAPI.api_id.must.equal(dummy_options.api_id);
         coveAPI.api_secret.must.equal(dummy_options.api_secret);
@@ -68,10 +66,7 @@ describe("COVE API Module", function() {
     // This follows the docs
     // https://projects.pbs.org/confluence/display/coveapi/Authentication#Authentication-Creatingthesignature
     it("Should produce a correct signature using example params from docs", function (){
-        var options = {
-                api_id : 'test-abc-123',
-                api_secret : '843e62bafd4573263e439a2463b4fe78b9a0b14c'
-            },
+        var options = bad_options,
             nonce = 'abcdef-tuv-wxyz',
             timestamp = '12345',
             url = 'http://api.pbs.org/cove/v1/videos?format=json&filter_nola_root=NOVA&filter_type=Episode',
@@ -88,14 +83,11 @@ describe("COVE API Module", function() {
     // This follows the docs
     // https://projects.pbs.org/confluence/display/coveapi/Authentication#Authentication-Creatingthesignature
     it("Should produce a correctly normalized and signed URL", function (){
-        var options = {
-                api_id : 'JOSHTEST-171ca88c-e987-4a06-a3f7-d46f2d6fa272',
-                api_secret : '1e7321e3-30f5-4df1-82a0-c4dd283b5f65'
-            },
+        var options = sandbox_options,
             nonce = 'c21d32917b0e71febd9',
             timestamp = '1288144873',
             url = 'http://api.pbs.org/cove/v1/videos/?filter_nola_root=SOTM&filter_mediafile_set__video_encoding__mime_type=application/x-mpegURL&fields=tp_media_object_id,title,associated_images',
-            expected_url = 'http://api.pbs.org/cove/v1/videos/?consumer_key=JOSHTEST-171ca88c-e987-4a06-a3f7-d46f2d6fa272&fields=tp_media_object_id%252Ctitle%252Cassociated_images&filter_mediafile_set__video_encoding__mime_type=application%252Fx-mpegURL&filter_nola_root=SOTM&nonce=c21d32917b0e71febd9&timestamp=1288144873&signature=0a2d687dd230aad395db7591b5e68643c96a25f7';
+            expected_url = 'http://api.pbs.org/cove/v1/videos/?consumer_key=Public-Destination-07c5773f-344f-4dd4-a3d1-e1e85157f821&fields=tp_media_object_id%252Ctitle%252Cassociated_images&filter_mediafile_set__video_encoding__mime_type=application%252Fx-mpegURL&filter_nola_root=SOTM&nonce=c21d32917b0e71febd9&timestamp=1288144873&signature=02f6ddaf48d89626cc2c5cb86b5a44b636b4fc67';
 
         coveAPI.setAuth(options);
 
@@ -105,4 +97,23 @@ describe("COVE API Module", function() {
         signed_url.must.be.equal.to(expected_url);
     });
 
+    it("Should make a successful request and retrieve data", function (finished){
+        var url = 'http://api.pbs.org/cove/v1/programs/?filter_producer__name=PBS&fields=associated_images';
+
+        coveAPI.setAuth(sandbox_options);
+        var options = {};
+        coveAPI.request(url, options)
+        .then(function(data){
+            data.must.be.an.object();
+            data.results.must.be.an.array();
+            data.results.length.must.be.at.least(1);
+            data.count.must.be.at.least(1);
+            finished();
+        })
+        .catch(function(err){
+            err.statusCode.must.be(200);
+            finished();
+        })
+        .done();
+    });
 });
