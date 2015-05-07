@@ -97,7 +97,7 @@ describe("COVE API Module", function() {
         signed_url.must.be.equal.to(expected_url);
     });
 
-    it("Should make a successful request and retrieve data", function (finished){
+    it("Should make a successful request and retrieve data (Promises)", function (finished){
         var url = 'http://api.pbs.org/cove/v1/programs/?filter_producer__name=PBS&fields=associated_images';
 
         coveAPI.setAuth(sandbox_options);
@@ -115,5 +115,24 @@ describe("COVE API Module", function() {
             finished();
         })
         .done();
+    });
+
+    it("Should make a successful request and retrieve data (Async)", function (finished){
+        var url = 'http://api.pbs.org/cove/v1/programs/?filter_producer__name=PBS&fields=associated_images';
+
+        coveAPI.setAuth(sandbox_options);
+        var options = {};
+        coveAPI.request_async(url, options, function(err, data){
+            if (err) {
+                err.statusCode.must.be(200);
+                finished();
+            } else {
+                data.must.be.an.object();
+                data.results.must.be.an.array();
+                data.results.length.must.be.at.least(1);
+                data.count.must.be.at.least(1);
+                finished();
+            }
+        });
     });
 });
