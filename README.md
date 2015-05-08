@@ -19,7 +19,9 @@ $ npm test
 
 ## Examples
 ```
-$ cd examples.
+$ cd examples
+$ export COVE_API_ID='YOUR COVE_API_ID'
+$ export COVE_API_SECRET='YOUR COVE_API_SECRET'
 $ node simple_request.js
 ```
 Sample Code:
