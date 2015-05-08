@@ -1,10 +1,10 @@
 ## cove-api
-A node.js module for accessing the PBS COVE V1 API. See PBS Documentation:
+A node.js module for accessing the PBS COVE V1 API. See COVE API Documentation:
 * https://projects.pbs.org/confluence/display/coveapi/Welcome
 
 ## Dependencies
-* Node.js
-* A COVE API_ID and API_SECRET
+* COVE API_ID
+* COVE API_SECRET
 
 ## Install
 ```
