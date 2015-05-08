@@ -24,7 +24,7 @@ $ node simple_request.js
 ```
 Sample Code:
 ```javascript
-var COVEApi = require('../'),
+var COVEApi = require('cove-api'),
     colors = require('colors');
 
 // Get api credentials from Environment
