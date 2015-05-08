@@ -1,6 +1,5 @@
 var demand  = require('must'),
     assert  = require('assert'),
-    moment  = require('moment'),
     COVEApi = require('./../');
 
 // These work in a limited capacity
