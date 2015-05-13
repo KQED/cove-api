@@ -18,13 +18,23 @@ $ npm test
 ```
 
 ## Examples
+### Quick start
 ```
 $ cd examples
 $ export COVE_API_ID='YOUR COVE_API_ID'
 $ export COVE_API_SECRET='YOUR COVE_API_SECRET'
 $ node simple_request.js
 ```
-Sample Code:
+Output:
+```
+Async: results count: 200
+Async: first image url: http://image.pbs.org/contentchannels/2340/MmFmdUNelPiWY1fJnGw.jpg.resize.144x81.jpg
+Promises: results count: 200
+Promises: first image url: http://image.pbs.org/contentchannels/2340/MmFmdUNelPiWY1fJnGw.jpg.resize.144x81.jpg
+Promises w/ Header Auth: results count: 200
+Promises w/ Header Auth: first image url: http://image.pbs.org/contentchannels/2340/MmFmdUNelPiWY1fJnGw.jpg.resize.144x81.jpg
+```
+### Sample Code
 ```javascript
 var COVEApi = require('cove-api');
 
