@@ -1,6 +1,6 @@
 {
   "name": "cove-api",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A node.js module for accessing the PBS COVE V1 API",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "author": "Kip Gebhardt <kgebhardt@kqed.org>",
   "license": "MIT",
-  "repository" : "https://github.com/KQED/cove-api",
+  "repository": "https://github.com/KQED/cove-api",
   "keywords": [
     "pbs",
     "tv",
