@@ -26,8 +26,7 @@ $ node simple_request.js
 ```
 Sample Code:
 ```javascript
-var COVEApi = require('cove-api'),
-    colors = require('colors');
+var COVEApi = require('cove-api');
 
 // Get api credentials from Environment
 var api_id =  process.env.COVE_API_ID || null,
@@ -46,7 +45,7 @@ var coveAPI = new COVEApi(options);
 var options = {};
 coveAPI.request(url, options).
 then(function(data){
-    console.log('Promises:'.blue + ' results count:'.green, data.results.length);
+    console.log('results count:', data.results.length);
 })
 .catch(function(e){
     console.error(e);
