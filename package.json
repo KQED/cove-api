@@ -8,6 +8,16 @@
   },
   "author": "Kip Gebhardt <kgebhardt@kqed.org>",
   "license": "MIT",
+  "repository" : "https://github.com/KQED/cove-api",
+  "keywords": [
+    "pbs",
+    "tv",
+    "television",
+    "listings",
+    "public",
+    "broadcasting",
+    "api"
+  ],
   "dependencies": {
     "bluebird": "^2.9.25",
     "bunyan": "^1.3.5",
