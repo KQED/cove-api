@@ -9,6 +9,10 @@ A node.js module for accessing the PBS COVE V1 API. See COVE API Documentation:
 
 ## Install
 ```
+$ npm install cove-api
+```
+or
+```
 $ git clone https://github.com/KQED/cove-api.git
 $ cd cove-api
 $ npm install
