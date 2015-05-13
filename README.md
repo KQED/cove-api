@@ -19,6 +19,8 @@ $ npm test
 
 ## Examples
 ### Quick start
+This example queries COVE for programs produced by PBS and requests the associated images.
+* Ex: http://api.pbs.org/cove/v1/programs/?filter_producer__name=PBS&fields=associated_images
 ```
 $ cd examples
 $ export COVE_API_ID='YOUR COVE_API_ID'
