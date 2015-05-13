@@ -18,16 +18,27 @@ $ npm test
 ```
 
 ## Examples
+### Quick start
+This example queries COVE for programs produced by PBS and requests the associated images.
+* Ex: http://api.pbs.org/cove/v1/programs/?filter_producer__name=PBS&fields=associated_images
 ```
 $ cd examples
 $ export COVE_API_ID='YOUR COVE_API_ID'
 $ export COVE_API_SECRET='YOUR COVE_API_SECRET'
 $ node simple_request.js
 ```
-Sample Code:
+Output:
+```
+Async: results count: 200
+Async: first image url: http://image.pbs.org/contentchannels/2340/MmFmdUNelPiWY1fJnGw.jpg.resize.144x81.jpg
+Promises: results count: 200
+Promises: first image url: http://image.pbs.org/contentchannels/2340/MmFmdUNelPiWY1fJnGw.jpg.resize.144x81.jpg
+Promises w/ Header Auth: results count: 200
+Promises w/ Header Auth: first image url: http://image.pbs.org/contentchannels/2340/MmFmdUNelPiWY1fJnGw.jpg.resize.144x81.jpg
+```
+### Sample Code
 ```javascript
-var COVEApi = require('cove-api'),
-    colors = require('colors');
+var COVEApi = require('cove-api');
 
 // Get api credentials from Environment
 var api_id =  process.env.COVE_API_ID || null,
@@ -46,7 +57,7 @@ var coveAPI = new COVEApi(options);
 var options = {};
 coveAPI.request(url, options).
 then(function(data){
-    console.log('Promises:'.blue + ' results count:'.green, data.results.length);
+    console.log('results count:', data.results.length);
 })
 .catch(function(e){
     console.error(e);
