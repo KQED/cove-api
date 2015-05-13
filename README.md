@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/KQED/cove-api.svg?branch=release)](https://travis-ci.org/KQED/cove-api)
 ## cove-api
 A node.js module for accessing the PBS COVE V1 API. See COVE API Documentation:
 * https://projects.pbs.org/confluence/display/coveapi/Welcome
