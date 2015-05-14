@@ -1,6 +1,6 @@
 {
   "name": "cove-api",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A node.js module for accessing the PBS COVE V1 API",
   "main": "index.js",
   "scripts": {
