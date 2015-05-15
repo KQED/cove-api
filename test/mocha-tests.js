@@ -42,7 +42,7 @@ describe("COVE API Module", function() {
 
     it("Should properly normalize a url", function (){
         var url = 'http://api.pbs.org/cove/v1/videos/?filter_nola_root=SOTM&filter_mediafile_set__video_encoding__mime_type=application/x-mpegURL&fields=tp_media_object_id,title,associated_images',
-            correctly_normalized = 'http://api.pbs.org/cove/v1/videos/?consumer_key=TEST123&fields=tp_media_object_id%252Ctitle%252Cassociated_images&filter_mediafile_set__video_encoding__mime_type=application%252Fx-mpegURL&filter_nola_root=SOTM&nonce=66486f690b8030fa661e315749ff5d95&timestamp=1430872773';
+            correctly_normalized = 'http://api.pbs.org/cove/v1/videos/?consumer_key=TEST123&fields=tp_media_object_id%2Ctitle%2Cassociated_images&filter_mediafile_set__video_encoding__mime_type=application%2Fx-mpegURL&filter_nola_root=SOTM&nonce=66486f690b8030fa661e315749ff5d95&timestamp=1430872773';
 
         var normalized_url = coveAPI.normalizeUrl(url, '1430872773', '66486f690b8030fa661e315749ff5d95');
 
@@ -53,7 +53,7 @@ describe("COVE API Module", function() {
         var nonce = '66486f690b8030fa661e315749ff5d95',
             timestamp = '1430872773',
             url = 'http://api.pbs.org/cove/v1/videos/?filter_nola_root=SOTM&filter_mediafile_set__video_encoding__mime_type=application/x-mpegURL&fields=tp_media_object_id,title,associated_images',
-            expected_sig = '8092d5ec042cbcf46e9312f1c32dbfd836aa5688';
+            expected_sig = '3717f89ea68b0b792f790370374d14a682033aa4';
 
         var normalized_url = coveAPI.normalizeUrl(url, timestamp, nonce);
 
@@ -86,7 +86,7 @@ describe("COVE API Module", function() {
             nonce = 'c21d32917b0e71febd9',
             timestamp = '1288144873',
             url = 'http://api.pbs.org/cove/v1/videos/?filter_nola_root=SOTM&filter_mediafile_set__video_encoding__mime_type=application/x-mpegURL&fields=tp_media_object_id,title,associated_images',
-            expected_url = 'http://api.pbs.org/cove/v1/videos/?consumer_key=Public-Destination-07c5773f-344f-4dd4-a3d1-e1e85157f821&fields=tp_media_object_id%252Ctitle%252Cassociated_images&filter_mediafile_set__video_encoding__mime_type=application%252Fx-mpegURL&filter_nola_root=SOTM&nonce=c21d32917b0e71febd9&timestamp=1288144873&signature=02f6ddaf48d89626cc2c5cb86b5a44b636b4fc67';
+            expected_url = 'http://api.pbs.org/cove/v1/videos/?consumer_key=Public-Destination-07c5773f-344f-4dd4-a3d1-e1e85157f821&fields=tp_media_object_id%2Ctitle%2Cassociated_images&filter_mediafile_set__video_encoding__mime_type=application%2Fx-mpegURL&filter_nola_root=SOTM&nonce=c21d32917b0e71febd9&timestamp=1288144873&signature=c4a818cb1c59763e0d25e2a1422730c086e44ef2';
 
         coveAPI.setAuth(options);
 
@@ -94,6 +94,15 @@ describe("COVE API Module", function() {
             signed_url = coveAPI.signUrl(normalized_url, timestamp, nonce);
 
         signed_url.must.be.equal.to(expected_url);
+    });
+
+    it("Should properly normalize a URL with spaces and ':'", function (){
+        var url = 'http://api.pbs.org/cove/v1/programs/?filter_title=A Raisin in the Sun Revisited: The Raisin Cycle at Center Stage';
+            correctly_normalized = 'http://api.pbs.org/cove/v1/programs/?consumer_key=Public-Destination-07c5773f-344f-4dd4-a3d1-e1e85157f821&filter_title=A+Raisin+in+the+Sun+Revisited%3A+The+Raisin+Cycle+at+Center+Stage&nonce=66486f690b8030fa661e315749ff5d95&timestamp=1430872773';
+
+        var normalized_url = coveAPI.normalizeUrl(url, '1430872773', '66486f690b8030fa661e315749ff5d95');
+
+        normalized_url.must.be.equal.to(correctly_normalized);
     });
 
     it("Should make a successful request and retrieve data (Promises)", function (finished){
