@@ -143,4 +143,23 @@ describe("COVE API Module", function() {
             }
         });
     });
+
+    it("Should return a COVE error on a bad request (Async)", function (finished){
+        var url = 'http://api.pbs.org/cove/v1/programs/?order_by=-available_datetime&filter_availability_status=Available&filter_title=Nova';
+
+        coveAPI.setAuth(sandbox_options);
+
+        var options = {};
+        coveAPI.request_async(url, options, function(err, data){
+            if (err) {
+                err.statusCode.must.be(500);
+                err.must.be.an.object();
+                err.statusCode.must.be.a.number();
+                finished();
+            } else {
+                data.must.not.be.an.object();
+                finished();
+            }
+        });
+    });
 });
