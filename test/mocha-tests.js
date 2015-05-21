@@ -105,6 +105,36 @@ describe("COVE API Module", function() {
         normalized_url.must.be.equal.to(correctly_normalized);
     });
 
+    it("Should properly normalize a URL with single quote in it", function (){
+        var url = "http://api.pbs.org/cove/v1/programs/?filter_title=Cat's Meow";
+            correctly_normalized = 'http://api.pbs.org/cove/v1/programs/?consumer_key=Public-Destination-07c5773f-344f-4dd4-a3d1-e1e85157f821&filter_title=Cat%27s+Meow&nonce=66486f690b8030fa661e315749ff5d95&timestamp=1430872773';
+
+        var normalized_url = coveAPI.normalizeUrl(url, '1430872773', '66486f690b8030fa661e315749ff5d95');
+
+        normalized_url.must.be.equal.to(correctly_normalized);
+    });
+
+    it("Should properly normalize a URL with exclamation point in it", function (){
+        var url = "http://api.pbs.org/cove/v1/programs/?filter_title=Check Please!";
+            correctly_normalized = 'http://api.pbs.org/cove/v1/programs/?consumer_key=Public-Destination-07c5773f-344f-4dd4-a3d1-e1e85157f821&filter_title=Check+Please%21&nonce=66486f690b8030fa661e315749ff5d95&timestamp=1430872773';
+
+        var normalized_url = coveAPI.normalizeUrl(url, '1430872773', '66486f690b8030fa661e315749ff5d95');
+
+        normalized_url.must.be.equal.to(correctly_normalized);
+    });
+
+    it("Should properly normalize a URL with a comma in it", function (){
+        var url = "http://api.pbs.org/cove/v1/programs/?filter_title=Check, Please";
+            correctly_normalized = 'http://api.pbs.org/cove/v1/programs/?consumer_key=Public-Destination-07c5773f-344f-4dd4-a3d1-e1e85157f821&filter_title=Check%2C+Please&nonce=66486f690b8030fa661e315749ff5d95&timestamp=1430872773';
+
+        var normalized_url = coveAPI.normalizeUrl(url, '1430872773', '66486f690b8030fa661e315749ff5d95');
+
+        normalized_url.must.be.equal.to(correctly_normalized);
+    });
+
+
+
+
     it("Should make a successful request and retrieve data (Promises)", function (finished){
         var url = 'http://api.pbs.org/cove/v1/programs/?filter_producer__name=PBS&fields=associated_images';
 
