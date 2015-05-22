@@ -18,7 +18,7 @@ if (!api_id || !api_secret) {
 var options = {
     api_id      : api_id,
     api_secret  : api_secret,
-    log_level   : 'debug'
+    log_level   : 'info'
 };
 var coveAPI = new COVEApi(options);
 
