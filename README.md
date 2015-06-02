@@ -11,18 +11,13 @@ A node.js module for accessing the PBS COVE V1 API. See COVE API Documentation:
 ```
 $ npm install cove-api
 ```
-or
-```
-$ git clone https://github.com/KQED/cove-api.git
-$ cd cove-api
-$ npm install
-```
+
 ## Test
 ```
 $ npm test
 ```
 
-## Examples
+## Usage
 ### Quick start
 This example queries COVE for programs produced by PBS and requests the associated images.
 * Ex: http://api.pbs.org/cove/v1/programs/?filter_producer__name=PBS&fields=associated_images
